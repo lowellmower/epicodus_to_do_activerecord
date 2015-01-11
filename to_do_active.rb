@@ -35,8 +35,12 @@ def add
 	puts "What would you like to do?"
 	task_name = gets.chomp
 	task = Task.new(:name => task_name, :done => false)
-	task.save
-	"'#{task.name} has been added to your To Do list."
+	if task.save
+		puts "'#{task.name}' has been added to your To Do list."
+	else
+		puts "That was not a valid task:"
+		task.errors.full_messages.each { |message| puts message }
+	end
 end
 
 def mark_done
